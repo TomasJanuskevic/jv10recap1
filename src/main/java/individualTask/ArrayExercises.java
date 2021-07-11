@@ -1,10 +1,14 @@
 package individualTask;
 
+import java.util.Arrays;
+
 public class ArrayExercises {
     public static void main(String[] args) {
         reverse();
         exercise6();
         exercise10();
+        exercise8();
+        exercise4();
     }
 
 
@@ -29,7 +33,6 @@ public class ArrayExercises {
         System.out.println(newWord);
 
 
-
     }
 
     private static void exercise10() {
@@ -41,13 +44,29 @@ public class ArrayExercises {
         for (char c : wordInChar) {
             if (Character.toString(c).matches("[0-9]")) {
                 numbers++;
-            } else if (Character.toString(c).matches("[a-zA-Z]")){
+            } else if (Character.toString(c).matches("[a-zA-Z]")) {
                 letters++;
             }
         }
 
         System.out.println("numbers: " + numbers);
-        System.out.println("letters: " +letters);
+        System.out.println("letters: " + letters);
     }
 
+    private static void exercise8() {
+        int[] integers = new int[]{1, 7, 3, 10, 9};
+
+        int[] integersSorted = Arrays.stream(integers).sorted().toArray();
+        System.out.println(integersSorted[integersSorted.length - 2]);
+
+        Arrays.stream(integers).sorted().filter(i -> i == integers[integers.length - 2]).forEach(System.out::println);
+    }
+
+    private static void exercise4() {
+        int[] integers = new int[100];
+        for (int i = 0; i < 100; i++) {
+            integers[i] = i;
+        }
+        Arrays.stream(integers).filter(i -> i % 5 == 0 && i % 3 == 0).forEach(System.out::println);
+    }
 }
