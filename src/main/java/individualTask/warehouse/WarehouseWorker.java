@@ -1,35 +1,66 @@
 package individualTask.warehouse;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class WarehouseWorker {
     private List<Product> products = new ArrayList<>();
 
-    public WarehouseWorker() {
-        setProducts();
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
-    private void setProducts(){
-            products.add(new Product("Milk", 1.8, 2.99, 20));
-            products.add(new Product("Bread", 0.8, 0.99, 29));
-            products.add(new Product("Soap", 0.1, 2.99, 200));
-            products.add(new Product("Shampoo", 1.8, 4.99, 20));
-            products.add(new Product("Beer", 1.1, 1.99, 140));
-            products.add(new Product("Apple", 0.05, 0.19, 4110));
-            products.add(new Product("Salad", 0.07, 0.99, 280));
-            products.add(new Product("Egg", 0.08, 0.49, 902));
-            products.add(new Product("Water", 1, 0.99, 278));
-            products.add(new Product("Juice", 1, 1.99, 264));
-
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public Product mostExpensive(){
+    public Product mostExpensive(List<Product> products) {
         return products
                 .stream()
                 .max(Comparator.comparing(Product::getPrice))
                 .orElseThrow(NoSuchElementException::new);
     }
+
+    public Product cheapestProduct(List<Product> products) {
+        return products
+                .stream()
+                .min(Comparator.comparing(Product::getPrice))
+                .orElseThrow(NoSuchElementException::new);
+    }
+
+    public Product heaviestProduct(List<Product> products) {
+        return products
+                .stream()
+                .max(Comparator.comparing(Product::getWeight))
+                .orElseThrow(NoSuchElementException::new);
+    }
+
+    public Product maxQuantityProduct(List<Product> products) {
+        return products
+                .stream()
+                .max(Comparator.comparing(Product::getQuantity))
+                .orElseThrow(NoSuchElementException::new);
+    }
+
+    public double averagePrice(List<Product> products) {
+        return products.stream().mapToDouble(product -> product.getPrice()).average().getAsDouble();
+    }
+
+    public void viewProducts() {
+        products.stream().forEach(System.out::println);
+    }
+
+    public List<Product> deleteProductByName(List<Product> products, String name) {
+        products.remove(products.stream().filter(product -> product.getName().equals(name)).findFirst().get());
+        return products;
+    }
+
+    public List<Product> updateProductPriceByName(List<Product> products, String name, double newPrice) {
+        for (Product product : products) {
+            if(name.equals(product.getName())){
+                product.setPrice(newPrice);
+            }
+        }
+        return products;
+    }
+
 }
