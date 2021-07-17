@@ -5,6 +5,8 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 import java.util.List;
 
+
+
 public class Main {
     public static void main(String[] args) throws IOException, ParseException {
 
@@ -24,8 +26,6 @@ public class Main {
         System.out.println(warehouseWorker.deleteProductByName(warehouseWorker.getProducts(), "Milk"));
         System.out.println("----------------------");
         System.out.println(warehouseWorker.updateProductPriceByName(warehouseWorker.getProducts(), "Bread", 10.0));
-
-
 
 
 
